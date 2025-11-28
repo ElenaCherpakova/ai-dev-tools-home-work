@@ -32,27 +32,68 @@ class TodoModelTest(TestCase):
         """Test that updated_at is automatically set"""
         self.assertIsNotNone(self.todo.updated_at)
 
-class BaseTemplateTest(TestCase):
+
+class HomePageTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse('todo-list')
+        self.url = reverse('home')
     
-    def test_base_template_has_navigation(self):
-        """Test that base template includes navigation"""
+    def test_home_page_status_code(self):
+        """Test that home page returns 200"""
         response = self.client.get(self.url)
-        self.assertContains(response, "Home")
-        self.assertContains(response, "Create TODO")
+        self.assertEqual(response.status_code, 200)
     
-    def test_base_template_navigation_links(self):
-        """Test that navigation links are correct"""
+    def test_home_page_uses_correct_template(self):
+        """Test that home page uses home.html"""
         response = self.client.get(self.url)
-        self.assertContains(response, reverse('todo-list'))
-        self.assertContains(response, reverse('todo-create'))
+        self.assertTemplateUsed(response, 'home.html')
     
-    def test_base_template_extends(self):
-        """Test that pages extend base.html"""
+    def test_home_page_extends_base(self):
+        """Test that home page extends base.html"""
         response = self.client.get(self.url)
         self.assertTemplateUsed(response, 'base.html')
+    
+    def test_home_page_has_welcome_message(self):
+        """Test that home page has welcome message"""
+        response = self.client.get(self.url)
+        self.assertContains(response, "Welcome to TODO App")
+    
+    def test_home_page_has_link_to_todos(self):
+        """Test that home page has link to TODOs"""
+        response = self.client.get(self.url)
+        self.assertContains(response, reverse('todo-list'))
+
+
+class HomePageTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('home')
+    
+    def test_home_page_status_code(self):
+        """Test that home page returns 200"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_home_page_uses_correct_template(self):
+        """Test that home page uses home.html"""
+        response = self.client.get(self.url)
+        self.assertTemplateUsed(response, 'home.html')
+    
+    def test_home_page_extends_base(self):
+        """Test that home page extends base.html"""
+        response = self.client.get(self.url)
+        self.assertTemplateUsed(response, 'base.html')
+    
+    def test_home_page_has_welcome_message(self):
+        """Test that home page has welcome message"""
+        response = self.client.get(self.url)
+        self.assertContains(response, "Welcome to TODO App")
+    
+    def test_home_page_has_link_to_todos(self):
+        """Test that home page has link to TODOs"""
+        response = self.client.get(self.url)
+        self.assertContains(response, reverse('todo-list'))
+
 
 class TodoListViewTest(TestCase):
     def setUp(self):
