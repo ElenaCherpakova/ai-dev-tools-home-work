@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if todo %}Edit{% else %}Create{% endif %} TODO{% endblock %}
+
+{% block content %}
+<h1>{% if todo %}Edit TODO{% else %}Create TODO{% endif %}</h1>
+
+<style>
+    form {
+        max-width: 500px;
+    }
+    
+    form p {
+        margin-bottom: 15px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    input, textarea, select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+    }
+    
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+    
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    a {
+        background-color: #999;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        margin-left: 10px;
+        display: inline-block;
+    }
+    
+    a:hover {
+        background-color: #777;
+    }
+</style>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+    <a href="{% url 'todo-list' %}">Cancel</a>
+</form>
+{% endblock %}
