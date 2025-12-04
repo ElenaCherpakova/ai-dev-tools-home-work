@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .welcome-section {
+        text-align: center;
+        padding: 40px 20px;
+    }
+    
+    .welcome-section h2 {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+    
+    .welcome-section p {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    
+    .cta-button:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="welcome-section">
+    <h2>Welcome to TODO App</h2>
+    <p>Manage your tasks efficiently</p>
+    <a href="{% url 'todo-list' %}" class="cta-button">View My TODOs</a>
+</div>
+{% endblock %}
